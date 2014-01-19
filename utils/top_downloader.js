@@ -17,7 +17,7 @@ module.exports.fetchUkTop100 = function(done) {
       albumInfos[i].albumName = $(element).text();
     });
 
-    $('td.infos div.infoHolder h4').each(function (i, element) {
+    $('td.info div.infoHolder h4').each(function (i, element) {
       albumInfos[i].artistName = $(element).text();
     });
 

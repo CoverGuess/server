@@ -34,19 +34,19 @@ exports.mount = function (app) {
   });
 
   app.get('/top100', function (req, res) {
-    topDownloader.fetchUkTop100(function (err, nameList) {
+    topDownloader.fetchUkTop100(function (err, albumList) {
       if (err)
         return res.send(500, err);
 
-      console.log(nameList);
-      async.mapSeries(nameList, function (title, done) {
-        aws.getCover(title, null, function (err, imageUrl) {
+      console.log(albumList);
+      async.mapSeries(albumList, function (album, done) {
+        aws.getCover(album.albumName, album.artistName, function (err, imageUrl) {
           if (err) {
-            console.log(title, 'FAILED');
+            console.log(album.albumName, 'FAILED');
             return done(null, null);
           }
 
-          console.log(title, 'OK');
+          console.log(album.albumName, 'OK');
           return done(null, imageUrl);
         });
       }, function (err, results) {
