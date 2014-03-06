@@ -17,10 +17,10 @@ exports.getCover = function (title, artist, done) {
       return done(err);
 
     if (parseInt(response.Items.TotalResults) === 0)
-      return done('not_found');
+      return done('not_found (No results)');
 
     if (!response.Items.Item[0])
-      return done('not_found');
+      return done('not_found (No item)');
 
     var imageUrl = response.Items.Item[0].LargeImage.URL;
 

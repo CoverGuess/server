@@ -1,5 +1,6 @@
 var topDownloader = require('../utils/top_downloader'),
     async = require('async'),
+    Album = require('../resources/album_res'),
     _ = require('underscore'),
     aws = require('../utils/aws');
 
@@ -60,8 +61,26 @@ exports.mount = function (app) {
 
 
   app.get('/debug/scraper', function (req, res) {
-    topDownloader.fetchUkTop100(function (err, albums) {
+    //topDownloader.fetchUkTop100(function (err, albums) {
+    topDownloader.fetchRollingStonesTop500(function (err, albums) {
+      if (err)
+        return res.send(500, err);
+
       return res.send(albums);
+    });
+  });
+
+
+  app.get('/debug/db', function (req, res) {
+    var album = new Album('somewhere', 'nom', 'artiste');
+    Album.save(album, function (err, results) {
+      if (err) {
+        console.log(err);
+        return res.send(500);
+      }
+
+      console.log(results);
+      return res.send(200, results);
     });
   });
 };

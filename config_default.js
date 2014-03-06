@@ -7,6 +7,7 @@ exports.AWS_ASSOCIATE_TAG = '';
 
 exports.URL_UK_TOP_100 = 'http://www.officialcharts.com/albums-chart/';
 
-exports.SQL_HOST = 'localhost';
-exports.SQL_USER = 'root';
-exports.SQL_PASSWORD = '';
+exports.DB_USER_NAME = 'root';
+exports.DB_PASS = '';
+exports.DB_HOST = 'localhost';
+exports.DB_NAME = 'cover_guesser';

@@ -6,7 +6,7 @@ var aws = require('../utils/aws'),
 exports.mount = function (app) {
 
   app.post('/cover/show', function (req, res) {
-    aws.getCover(req.body.title, function (err, imageUrl) {
+    aws.getCover(req.body.title, req.body.artist, function (err, imageUrl) {
       if (err) {
         console.log(err);
         if (err !== 'not_found')
@@ -20,7 +20,7 @@ exports.mount = function (app) {
   });
 
   app.post('/cover/getInfos', function (req, res) {
-    aws.getCover(req.body.title, function (err, imageUrl) {
+    aws.getMetadata(req.body.title, req.body.artist, function (err, metadatas) {
       if (err) {
         console.log(err);
         if (err !== 'not_found')
@@ -29,7 +29,7 @@ exports.mount = function (app) {
         return res.send(200, 'No album found !');
       }
 
-      return res.render('cover', {imageUrl: imageUrl});
+      return res.render(metadatas);
     });
   });
 

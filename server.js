@@ -4,6 +4,9 @@ var express = require('express'),
 
 var app = express();
 
+require('./workers');
+require('./utils/updater');
+
 app.configure(function () {
   app.set('view engine', 'html');
   app.engine('.html', require('ejs').__express);
