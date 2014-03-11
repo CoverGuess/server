@@ -1,7 +1,7 @@
 var aws = require('../utils/aws'),
     _ = require('underscore'),
     async = require('async'),
-    topDownloader = require('../utils/top_downloader');
+    topDownloader = require('../downloaders/top_downloader');
 
 exports.mount = function (app) {
 

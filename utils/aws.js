@@ -22,6 +22,9 @@ exports.getCover = function (title, artist, done) {
     if (!response.Items.Item[0])
       return done('not_found (No item)');
 
+    if (!response.Items.Item[0].LargeImage)
+      return done('not_found (No image');
+        
     var imageUrl = response.Items.Item[0].LargeImage.URL;
 
     return done(null, imageUrl);

@@ -1,29 +1,13 @@
 var channel = require('./channel'),
     _ = require('underscore'),
     async = require('async'),
+    dataValidator = require('./data_validator'),
     aws = require('./aws'),
-    topDownloader = require('./top_downloader');
+    topDownloader = require('../downloaders/top_downloader');
 
 channel.on('full_update', function () {
-  topDownloader.fetchAll(function (err, tops) {
-    if (err)
-      return console.log(err);
-
-    console.log('album infos retrieved');
-
-    var albumInfos = [];
-
-    _(tops).each(function (top) {
-      albumInfos = albumInfos.concat(top);
-    });
-
-    console.log(albumInfos);
-    // TODO : function to remove dubs
-
-    _(albumInfos).each(function (albumInfo) {
-      channel.send('fetch_cover', albumInfo);
-    });
-  });
+  // top downloaders fire 'fetch_cover' events for each album
+  topDownloader.fetchAll();
 });
 
 var fetchQueue = async.queue(function (task, done) {
@@ -39,8 +23,8 @@ var fetchQueue = async.queue(function (task, done) {
           return done(err);
 
         channel.send('album_update', {
-          name: metaDatas.albumTitle,
-          artist: metaDatas.artistName,
+          name: albumName,
+          artist: artistName,
           imageUrl: imageUrl,
           date: metaDatas.releaseDate || null
         });
@@ -51,6 +35,9 @@ var fetchQueue = async.queue(function (task, done) {
 }, 1);
 
 channel.on('fetch_cover', function (albumInfo) {
+  if (!dataValidator.validateAlbumInfos(albumInfo))
+    console.log(albumInfo, 'didn\'t pass validation');
+  
   fetchQueue.push(albumInfo, function (err) {
     if (err)
       return console.log(err, albumInfo.albumName, '-', albumInfo.artistName);

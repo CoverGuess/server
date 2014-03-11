@@ -1,5 +1,6 @@
 var express = require('express'),
     config = require('./config'),
+    longjhon = require('longjohn');
     routes = require('./routes');
 
 var app = express();

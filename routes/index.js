@@ -3,6 +3,7 @@ var _ = require('underscore');
 var routes = [
     'amazon',
     'debug',
+    'backend',
     'api'
 ];
 

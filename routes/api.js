@@ -16,7 +16,7 @@ exports.mount = function (app) {
     });
   });
 
-  app.post('/api/update_db', function (req, res) {
+  app.get('/api/update_db', function (req, res) {
     channel.send('full_update');
     res.send(200);
   });

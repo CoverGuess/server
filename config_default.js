@@ -11,3 +11,5 @@ exports.DB_USER_NAME = 'root';
 exports.DB_PASS = '';
 exports.DB_HOST = 'localhost';
 exports.DB_NAME = 'cover_guesser';
+
+exports.MAX_STRING_LENGTH = 45;

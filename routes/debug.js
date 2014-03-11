@@ -1,4 +1,4 @@
-var topDownloader = require('../utils/top_downloader'),
+var topDownloader = require('../downloaders/top_downloader'),
     async = require('async'),
     Album = require('../resources/album_res'),
     _ = require('underscore'),
@@ -62,7 +62,7 @@ exports.mount = function (app) {
 
   app.get('/debug/scraper', function (req, res) {
     //topDownloader.fetchUkTop100(function (err, albums) {
-    topDownloader.fetchRollingStonesTop500(function (err, albums) {
+    require('../downloaders/rs_top500')(function (err, albums) {
       if (err)
         return res.send(500, err);
 

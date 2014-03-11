@@ -34,7 +34,11 @@ module.exports.fetchById = function (id, done) {
 };
 
 module.exports.fetchByInfos = function (name, artist, done) {
-  albumDb.fetchByKey(makeKey(name, artist), function (err, album) {
+  module.exports.fetchByKey(makeKey(name, artist), done);
+};
+
+module.exports.fetchByKey = function (key, done) {
+  albumDb.fetchByKey(key, function (err, album) {
     if (!err)
       return done(null, album);
 
@@ -71,7 +75,7 @@ module.exports.save = function (album, done) {
 
 var makeKey = function (albumName, artist) {
   // concat album name and artist name
-  var key = albumName + '_' + artist;
+  var key = albumName.toLowerCase() + '_' + artist.toLowerCase();
   // remove whitespaces
   key = key.replace(/\s/g, '');
   // remove every non alphanumérique char

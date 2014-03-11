@@ -1,0 +1,27 @@
+<html>
+<head>
+</head>
+<body>
+
+<table>
+	<tr>
+		<th>ID</th>
+		<th>Album</th>
+		<th>Artist</th>
+		<th>Year</th>
+		<th>Image</th>
+	</tr>
+	<% albums.forEach(function (album) { %>
+	<tr>
+		<td> <%= album.id %> </td>
+		<td> <%= album.name %> </td>
+		<td> <%= album.artist %> </td>
+		<td> <%= album.year || 'unknown' %> </td>
+		<td> <a href="/backend/album/<%= album.key %>">picture </a> </td>
+	</tr>
+	<% }); %>
+</table>
+</body>
+</html>
+
+
